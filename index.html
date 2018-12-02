@@ -1,0 +1,82 @@
+<style>
+  .ban {
+    /* border: 1px solid; */
+    height: 0.2%;
+    width: 100%;
+  }
+</style>
+<p>Click the button to paint rainbow.</p>
+
+<button onclick="makeBow()">Try it</button>
+<p>Settings:</p>
+<p>
+  <input type="range" id="size" name="size" onChange ="displaySize()"
+         min="1" max="20" step="1">
+  <label for="size">size of bands: </label>
+  <span id="sizeOUt">10</span>
+  <br />
+  <input type="range" id="contrast" name="contrast" onChange="displayCon()"
+         min="1" max="9" value="5" step="1">
+  <label for="constrast">Contrast: </label>
+  <span id="conOut">90</span>
+</p>
+
+<div id="rainbow">
+<div class="ban" style="background-color: hsl(0,100%, 50%);"></div>
+</div>
+<script>   
+
+
+
+console.log(document.querySelector("#size").value);
+console.log(document.querySelector("#contrast").value);
+
+function displaySize(){
+    document.querySelector("#sizeOut").textContent = document.querySelector("#size").value;
+    makeBow();
+}
+
+function displayCon(){
+    document.querySelector("#conOut").textContent = document.querySelector("#contrast").value;
+    makeBow()
+}
+
+
+function makeBow(){
+    document.querySelector("#rainbow").remove();
+    var rainbow = document.createElement('div');
+    document.body.appendChild(rainbow);
+    rainbow.setAttribute("id", "rainbow")
+    var num = 1;
+    var adder = parseInt(document.querySelector("#size").value);
+    var height = parseInt(document.querySelector("#contrast").value);
+    console.log(height)
+    for(let i = 0; i<341; i++){
+        if (num>340) return;
+        num = num+adder;
+        
+        var div = document.createElement("div");
+        // var t = document.createTextNode(num);
+        // div.appendChild(t)
+        div.setAttribute("class", "ban");
+        div.setAttribute("style", "background-color: hsl("+num+",100%, 50%);height: 0."+height+"%")
+        document.getElementById("rainbow").appendChild(div); 
+        
+    }   
+}
+    
+
+
+// for(var i=0; i<360; i++){
+//     console.log(i);
+//     document.querySelector("#ban").style.backgroundColor= "hsl("+i+",100%, 50%)";
+//     setTimeout(function(){
+//         // console.log(i);
+//         document.querySelector("#ban").style.backgroundColor= "hsl("+i+",100%, 50%)";
+//         document.querySelector("#ban").textContent = i;
+//     }, 1000)
+
+// }
+
+
+</script>
